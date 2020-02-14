@@ -21,12 +21,12 @@ ifndef ID
 	@echo "You must set an ID. Try 'make clean ID=1' for example."
 	@echo
 else
-	-docker kill $(NAME)_$(ID)
-	-docker rm $(NAME)_$(ID)
+	docker kill $(NAME)_$(ID)
+	docker rm $(NAME)_$(ID)
 endif
 
 
 
 net:
 
-	docker network create --subnet=175.20.0.0/16 dummy_net
+	docker network create --subnet=175.20.0.0/24 dummy_net
