@@ -11,5 +11,5 @@ handler.authorizer = authorizer
 
 # If run as main program
 if __name__ == '__main__':
-    server = FTPServer(("127.0.0.1", 1337), handler)
+    server = FTPServer(('', 21), handler)
     server.serve_forever()

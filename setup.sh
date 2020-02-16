@@ -2,9 +2,7 @@
 # This script is for setting up the Docker environment
 # I'll add oher stuff for setting up the rest of my environment too in future iterations.
 # source: https://docs.docker.com/v17.09/engine/installation/linux/docker-ce/ubuntu/#set-up-the-repository
-
-
-sudo apt-get install \
+sudo apt-get -y install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -19,6 +17,17 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 
-sudo apt-get update
-sudo apt-get install docker-ce
-sudo docker run hello-world
+sudo apt-get -y update
+sudo apt-get -y install docker-ce
+
+
+# create a docker group and sudo the docker shenanigans
+# source: https://docs.docker.com/install/linux/linux-postinstall/
+# this is needed for make files
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+
+# test everything is working well
+docker run hello-world
