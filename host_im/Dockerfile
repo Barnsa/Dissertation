@@ -1,6 +1,7 @@
+FROM ubuntu:bionic
 # set the scene and make sure we have 
 # tools to 
-FROM ubuntu:bionic
+
 RUN apt-get update
 RUN apt-get -y install netcat
 RUN apt-get -y install e3
@@ -19,13 +20,14 @@ RUN echo user:resu|chpasswd
 # requirements for AI server code
 RUN pip3 install pyftpdlib
 
-# adding and running server code
-ADD /ai_server_code.py /
-RUN python3 ai_server_code.py &
+# # adding and running server code
+# A DD /ai_server_code.py /
+# R UN python3 ai_server_code.py &
+#JS: I moved this into the "mount" folder, so you can edit while the devices are running
+# and I also moved the startup into the starter.sh script
 
 # adding and running starter script for some 
 # easy running and debugging
-COPY starter.sh /root/
-RUN chmod u+x /root/starter.sh
+# RUN chmod u+x /root/mount/starter.sh
 
-CMD ["/root/starter.sh"]
+CMD ["/root/mount/starter.sh"]

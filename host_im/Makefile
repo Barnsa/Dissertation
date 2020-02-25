@@ -1,10 +1,10 @@
 SHELL=/bin/bash
 NAME=dumbclient
 LOC=$(shell pwd)
-BUILD=$(shell docker build  -t barnsa/$(NAME) .)
 
 ALL: Dockerfile
-	$(BUILD)
+	docker build  -t barnsa/$(NAME) .	
+
 
 run:
 ifndef ID
