@@ -18,7 +18,7 @@ RUN useradd -ms /bin/bash user
 RUN echo user:resu|chpasswd
 
 # requirements for AI server code
-RUN pip3 install pyftpdlib
+# RUN pip3 install pyftpdlib
 RUN apt-get -y install ftp
 # # adding and running server code
 # A DD /ai_server_code.py /
