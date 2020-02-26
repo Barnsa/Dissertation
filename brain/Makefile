@@ -18,4 +18,4 @@ restart:
 #	docker kill $(NAME)
 	docker rm $(NAME)
 	docker build  -t barnsa/$(NAME) .
-	docker run -h $(NAME):latest --net dummy_net -v $(LOC)/mount:/root/mount  -it --privileged=true --name $(NAME) barnsa/$(NAME)
+	docker run -h $(NAME):latest --net dummy_net -v $(LOC)/mount:/root/mount  -it --privileged=true --name $(NAME) --ip 175.20.0.200 barnsa/$(NAME)
