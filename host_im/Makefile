@@ -38,6 +38,15 @@ else
 	docker run -h $(NAME)_$(ID):latest --net dummy_net -v $(LOC)/mount:/root/mount  -it --privileged=true --name $(NAME)_$(ID) barnsa/$(NAME)
 endif
 
+experiment:
+ifndef ID
+	@echo
+	@echo "You must set an ID. Try 'make stealth ID=1' for example."
+	@echo
+else
+	docker run -d -h $(NAME)_$(ID) --net dummy_net -v $(LOC)/mount:/root/mount  -it --privileged=true --name $(NAME)_$(ID) barnsa/$(NAME)  
+
+endif
 
 net:
 
