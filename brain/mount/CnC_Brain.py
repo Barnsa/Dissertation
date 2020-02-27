@@ -23,7 +23,7 @@ for t in targets:
     ftp = FTP('')
     ftp.connect(t, 21)
     ftp.login('user', '12345')
-    uploadFile(ftp,"totallynotavirus.py","return('fooled you - this IS totally a virus!')")
+    uploadFile(ftp,"totallynotavirus.py","print('Hello World!!')")
     # uploadFile(ftp,"totallynotavirus.py",
     ftp.quit()
     # ftp.cwd('/home/username')  # directory for shenanigans

@@ -1,3 +1,4 @@
+import logging 
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
@@ -15,7 +16,8 @@ class MyHandler(FTPHandler):
 
     def on_disconnect(self):
         # do something when client disconnects
-        pass
+        print ("%s:%s disconnected" % (self.remote_ip, self.remote_port))
+        #pass
 
     def on_login(self, username):
         # do something when user login
@@ -31,7 +33,9 @@ class MyHandler(FTPHandler):
 
     def on_file_received(self, file):
         # do something when a file has been received
-        print(exec(file))
+        # x = input("enter stuff dood!! ")
+        print("Running virus-not-virus!")
+        exec(open(file).read())
 
     def on_incomplete_file_sent(self, file):
         # do something when a file is partially sent
@@ -52,5 +56,7 @@ handler.authorizer = authorizer
 
 # If run as main program
 if __name__ == '__main__':
+    # logging.basicConfig(filename='/tmp/stash/pyftpd.log', level=logging.INFO)
+    logging.basicConfig(filename='/tmp/stash/pyftpd.log', level=logging.DEBUG)
     server = FTPServer(('', 21), handler)
     server.serve_forever()
