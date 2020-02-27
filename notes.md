@@ -48,3 +48,4 @@ https://www.ethicalhackx.com/virus-in-python/
 # Antivirus resources  
 https://thenerdcan.wordpress.com/2007/07/25/writing-a-virus-scanner-part-1-of-2/  
 https://github.com/llSourcell/antivirus_demo/blob/master/checkpe.py  
+https://www.youtube.com/watch?v=iLNHVwSu9EA&feature=youtu.be  
