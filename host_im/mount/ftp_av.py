@@ -2,12 +2,14 @@ import logging
 from pyftpdlib.authorizers import DummyAuthorizer
 from pyftpdlib.handlers import FTPHandler
 from pyftpdlib.servers import FTPServer
+import os, sys
 
 # Prototyping a subclass to handle anti-virus shenanigans.
 # please don't trim unless absolutely necessary!!
 class MyHandler(FTPHandler):
     """This is a subclass extension of the handler to add the 
-    necessary custom anti virus functionality.
+    necessary custom anti virus functionality. Controls output
+    on the commandline when it recieves a file.
     """
     def on_connect(self):
         # do somthing when a client connects
@@ -35,8 +37,13 @@ class MyHandler(FTPHandler):
         # do something when a file has been received
         # x = input("enter stuff dood!! ")
         print("Running virus-not-virus!")
-        exec(open(file).read())
-
+        # Move this out to a separate script and call it in a sepaate process
+        #exec(open(file).read())
+        pid=os.fork()
+        if pid!=0:
+            os.system("/root/mount/executor.py " + file)
+            sys.exit(0)
+        
     def on_incomplete_file_sent(self, file):
         # do something when a file is partially sent
         pass
