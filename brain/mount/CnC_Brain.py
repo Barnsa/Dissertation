@@ -1,7 +1,9 @@
 from ftplib import FTP
 import io
-targets=[]
-f=open("/root/brain/targets.txt","r")
+
+file = "print('Hello World!!')"
+
+
 
 
 def uploadFile(ftp,filename,data):
@@ -11,10 +13,10 @@ def uploadFile(ftp,filename,data):
     ftp.storbinary('STOR ' + filename, io.BytesIO(data.encode()))
 
 
-
+targets=[]
+f=open("/root/brain/targets.txt","r")
 for l in f.readlines():
     targets.append(l.strip())
-
 f.close()
     
 print("Brain started")
@@ -23,7 +25,7 @@ for t in targets:
     ftp = FTP('')
     ftp.connect(t, 21)
     ftp.login('user', '12345')
-    uploadFile(ftp,"totallynotavirus.py","print('Hello World!!')")
+    uploadFile(ftp,"totallynotavirus.py", file)
     # uploadFile(ftp,"totallynotavirus.py",
     ftp.quit()
     # ftp.cwd('/home/username')  # directory for shenanigans

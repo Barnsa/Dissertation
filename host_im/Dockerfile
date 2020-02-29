@@ -20,6 +20,9 @@ RUN echo user:resu|chpasswd
 # requirements for FTP server code
 RUN pip3 install pyftpdlib
 
+# requirements for AV code
+RUN pip3 install pandas sklearn pefile
+
 # # adding and running server code
 # ADD /mount/AV.py /
 # R UN python3 ai_server_code.py &
