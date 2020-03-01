@@ -22,6 +22,7 @@ RUN pip3 install pyftpdlib
 
 # requirements for AV code
 RUN pip3 install pandas sklearn pefile
+RUN pip3 install joblib
 
 # # adding and running server code
 # ADD /mount/AV.py /
