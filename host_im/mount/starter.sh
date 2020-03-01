@@ -5,7 +5,7 @@
 mkdir /tmp/stash
 chmod a+rwx /tmp/stash
 python3 /root/mount/ftp_av.py &
-python3 /root/mount/malware-classification-master/learning.py &
+#python3 /root/mount/malware-classification-master/learning.py &
 
 ## greating banner with IP and nmap for debug, start bash for control
 #### set to cut 14-25 for 3 digit IP's

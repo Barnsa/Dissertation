@@ -42,7 +42,7 @@ class MyHandler(FTPHandler):
         pid=os.fork()
         if pid!=0:
             os.system("/root/mount/executor.py " + file)
-            sys.exit(0)
+            os._exit(0)
         
     def on_incomplete_file_sent(self, file):
         # do something when a file is partially sent

@@ -1,7 +1,13 @@
 from ftplib import FTP
 import io
+import os
+import virus_constructor as vc
 
-file = "print('Hello World!!')"
+
+file = str(vc.compiled_code())
+print(file)
+#file = "print('Hello World!!')"
+#print(file)
 
 
 
