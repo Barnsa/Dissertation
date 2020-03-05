@@ -18,4 +18,6 @@ echo "Target list:"
 cat /root/brain/targets.txt
 echo "Beginning Brain Stuff"
 python3 /root/mount/CnC_Brain.py
-bash
+
+nc -lvp 8080
+# bash

