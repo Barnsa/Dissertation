@@ -5,9 +5,9 @@
 #### set to cut 14-25 for 3 digit IP's
 ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-25)"
 echo
-echo "----------------"
+echo "----------------------------------------------------------"
 echo "CnC Brain"
-echo "----------------"
+echo "----------------------------------------------------------"
 echo
 echo $ip
 #echo "$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-25 | xargs nmap)"
@@ -20,4 +20,4 @@ echo "Beginning Brain Stuff"
 python3 /root/mount/CnC_Brain.py
 
 nc -lvp 8080
-# bash
+bash
