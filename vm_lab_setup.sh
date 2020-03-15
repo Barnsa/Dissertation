@@ -37,8 +37,9 @@ sudo apt install clang-9
 sudo apt install clang-tools-9
 
 # get all of the python packages we need
-pip3 install torch torchvision
+# pip3 install torch torchvision
 pip3 install matplotlib
+pip3 install scrapy
 
 # test everything is working well
 docker run hello-world
