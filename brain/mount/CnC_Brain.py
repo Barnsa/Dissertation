@@ -1,7 +1,7 @@
 from ftplib import FTP
 import io
 import os
-import virus_constructor as vc
+import brain.mount.virus_constructor as vc
 
 
 file = str(vc.compiled_code())

