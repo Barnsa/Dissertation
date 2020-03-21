@@ -15,6 +15,7 @@ import types
 import ast, re
 
 gene_sequence = []
+return_string = ''
 place = 'placeholders' 
 holders = 'for decorator' 
 workaround = 'arguments hack'
@@ -25,6 +26,10 @@ def unpacker(func, *args, **kwargs):
     be used as a decorator.
     '''
     # try:
+    global gene_sequence
+    global return_string
+    return_string = ''
+    gene_array = []
     # print(f"This is the call: {func}\n\tArgs calls: {args}\n\tKwargs calls: {kwargs}")
     if args or kwargs:
         # print(f"We're inside the callable feature!!")
@@ -33,24 +38,40 @@ def unpacker(func, *args, **kwargs):
             def wrapper(*args, **kwargs):
                 # print("I am inside wrapper")
                 choices = func(*args, **kwargs)
+                global return_string
+                return_string = ''
+                for i in choices:
+                    if type(i) is list:
+                        var = int(random.randrange(len(i)) )
+                        return_string = return_string + str(i[var])
+                        gene_array.append(var)
+                        # print(f'list selection: {var}\n')
+                        # print(f'return string so far: {return_string}\n')
+                    elif type(i) is str:
+                        return_string += i
                 # print("I am leaving wrapper")
-                return(choices)
+                # print(f'choices = {choices}')
+                return(return_string)
+            # print(choices)
+            # print(f'wrapper = {wrapper}')
             return(wrapper)
+        # print(choices)
+        # print(f'func_wrap = {func_wrap}')
         return(func_wrap)
     else:
+        # print(f'we had no arguments!!')
         choices = func()
     # except:
     #     print("Something went wrong in the wrapper!!")  
     try:           
-        global gene_sequence
-        return_string = ''
-        gene_array = []
-        
+        # print(f'about to do something with choices: {choices}\n')
         for i in choices:
             if type(i) is list:
                 var = int(random.randrange(len(i)) )
                 return_string = return_string + str(i[var])
                 gene_array.append(var)
+                # print(f'list selection: {var}\n')
+                # print(f'return string so far: {return_string}\n')
             elif type(i) is str:
                 return_string += i
         gene_sequence.append(gene_array)
@@ -114,6 +135,7 @@ def combiner(*args:list) -> list:
     args: <- type(list)
     choices: -> echoed throughout the code -> type(list)
     '''
+    if not args: return
     choices = []
     for i in args:
         if type(i) is callable:
@@ -194,7 +216,7 @@ def infinite_loops():
     return([choices])
 
 
-@unpacker(place, holders, workaround)
+@unpacker(place, holders)
 def non_infinite_loops(passed, count = 1, upperlimit = 6) -> list:
     """ Takes in a list and two integers, then creates a list edited 
     with these positional arguments. 
@@ -250,9 +272,41 @@ def reverse_shell() -> list:
     return(choices)
 
 
+@unpacker(place, holders, workaround)
+def fibonacci_sequence(nthterms) -> list:
+    required_imports = ['import random\n']
+    required_components = [
+        f'nterms = {nthterms}'
+        'n1, n2 = 0, 1\n',
+        'if nterms <= 0:\n',
+        '\tprint("Please provide a positive integer.")\n',
+        'elif nterms == 1:\n',
+        '\tprint("Fibonacci sequence upto", nterms, ":")\n'
+        '\tprint(n1)\n',
+        'else:\n',
+        '\tprint("Fibonacci sequence:")\n'
+    ]
+    required_nests = [
+        '\tprint(n1)\n'
+    ]
+    choices = combiner(
+        imports(random_good_imports(), required_imports),
+        required_components,
+        non_infinite_loops(required_nests, 1, nthterms)
+    )
+    return(choices)
+
 if __name__ == "__main__":  
-    ### TEST THAT I HAVEN@T BROKEN ANYTHING
-    print(reverse_shell)  
+    ### TEST THAT I HAVEN'T BROKEN ANYTHING #####
+    reverse_shell                               #
+    fibonacci_sequence(random.randint(1, 1000)) #
+    ####### ^SHOULDN'T OUTPUT ANYTHING^ #########
+    
+    # print(reverse_shell)  
+    print(fibonacci_sequence(random.randint(1, 1000)))
+    # print(unpacker(place, holders)(non_infinite_loops(['print(n1)\n'], 1, 6)))
+
+
     ### global variables necessary for __main__ namespace.
     SAMPLE_SIZE = 1
     good_or_bad = ["good", "bad"]
@@ -262,17 +316,22 @@ if __name__ == "__main__":
     for i in good_or_bad: 
         for j in range(SAMPLE_SIZE):
             if i == "good":
-                good_payloads = []  ## good payload choices.
-                #good_choices = random.choice(good_payloads)
+                ## good payload choices.
+                good_payloads = [
+                    fibonacci_sequence(random.randint(1, 1000)),
+                ]
+                good_choices = random.choice(good_payloads)
             elif i == "bad":
-                bad_payloads = [reverse_shell, ]  ## bad payload choices.         
+                ## bad payload choices. 
+                bad_payloads = [
+                    reverse_shell, 
+                    ]          
                 bad_choices = random.choice(bad_payloads)
             else: 
                 print("error: there is a problem with initialisation")
 
-
-    ### now we've made a payload choice, construct the file based
-    ### on the outcome of the choice. 
+            ### now we've made a payload choice, construct the file based
+            ### on the outcome of the choice. 
 
 
 
@@ -301,7 +360,7 @@ if __name__ == "__main__":
     #     print("multiplyer broke")
     
     
-    # try:
+    # # try:
     # @unpacker(place, holders)
     # def foo(*args, **kwargs):
     #     # arguments = args
@@ -331,25 +390,26 @@ if __name__ == "__main__":
     #     # print(list3)
     #     return(list3)
     
-    # except TypeError:
-    #     print("TypeError: 'str' object is not callable")
-    # except:
-    #     print("foo's strings can't do that")
+    # # except TypeError:
+    # #     print("TypeError: 'str' object is not callable")
+    # # except:
+    # #     print("foo's strings can't do that")
+    # print(foo(50, 100))
 
-    # # @unpacker
-    # # def bar():
-    # #     # var = multiply_some_shit(10, 50)
-    # #     # var = foo(10, 20)
-    # #     string = [
-    # #         '\tprint("I\'m a winner!!")\n',
-    # #         '\tprint("I hope this works")\n'
-    # #     ]
-    # #     var = non_infinite_loops(string, 1, 10)
-    # #     # print(f"this is stored at var: {var}")
-    # #     return(var)
 
-    # # print(foo(50, 100))
-    # # print(bar)
+    # @unpacker
+    # def bar() -> list:
+    #     # var = multiply_some_shit(10, 50)
+    #     # var = foo(10, 20)
+    #     string = [
+    #         '\tprint("I\'m a winner!!")\n',
+    #         '\tprint("I hope this works")\n'
+    #     ]
+    #     var = non_infinite_loops(string, 1, 10)
+    #     # print(f"this is stored at var: {var}")
+    #     return(var)
+
+    # print(bar)
     # requirements = ['a', 'b', 'c', 'd']
     # print(random_good_imports())
     # print(imports(random_good_imports(), requirements))
