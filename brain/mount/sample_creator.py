@@ -13,12 +13,80 @@
 import random
 import types
 import ast, re
+import numpy as np
+import math
 
 gene_sequence = []
 return_string = ''
 place = 'placeholders' 
 holders = 'for decorator' 
 workaround = 'arguments hack'
+
+
+class SudokuMaker(object):
+    """ SudokuMaker 
+    """
+    def __init__(self, trgt_num):
+        self.__trgt_num = trgt_num
+        self.__decision_num = int(math.sqrt(trgt_num))
+
+    def make(self):
+        """ make sudoku function
+        """
+        sudoku_list = self.__make_source()
+        sudoku_list = self.__shuffle_block(sudoku_list)
+        sudoku_list = self.__shuffle_row_per_block(sudoku_list)
+        sudoku_list = self.__switch_row_column(sudoku_list)
+        sudoku_list = self.__shuffle_block(sudoku_list)
+        sudoku_list = self.__shuffle_row_per_block(sudoku_list)
+        return sudoku_list
+
+    def __make_source(self):
+        """ Return the source list of sudoku
+        """
+        init_list = list(range(1, self.__trgt_num + 1))
+
+        random.shuffle(init_list)
+        source_list = []
+        for i in range(self.__trgt_num):
+            init_list.insert(0, init_list.pop())
+            source_list.append(init_list[:])
+        return source_list
+
+    def __shuffle_block(self, in_list):
+        """ Shuffle Block
+        """
+        tmp_block = []
+        for i in range(self.__decision_num):
+            start = i * self.__decision_num
+            step = start + self.__decision_num
+            block = in_list[start:step]
+            tmp_block.append(block)
+        random.shuffle(tmp_block)
+        # format
+        ret_list = []
+        for var in tmp_block:
+            ret_list = ret_list + var
+        return ret_list
+
+    def __shuffle_row_per_block(self, in_list):
+        """ Shuffle Row per Block
+        """
+        ret_list = []
+        for i in range(self.__decision_num):
+            start = i * self.__decision_num
+            step = start + self.__decision_num
+            block = in_list[start:step]
+            random.shuffle(block)
+            ret_list = ret_list + block
+        return ret_list
+
+    def __switch_row_column(self, in_list):
+        """ switch row column
+        """
+        ret_list = [[r[i] for r in in_list] for i in range(self.__trgt_num)]
+        return ret_list
+
 
 def unpacker(func, *args, **kwargs):
     '''takes in a function that contains a list/s (up to a 2D aaray) 
@@ -196,6 +264,20 @@ def imports (good_bad_choice: list, requirements: list) -> list:
     return(choices)    
 
 
+# TODO This only handles a single case, it must be improved
+def nested(list_to_nest) -> list:
+    list_to_nest = list_to_nest.split('\n')
+    # print(list_to_nest)
+    temp = ['\t' + i + '\n' for i in list_to_nest]
+    # list_to_nest = 
+    # 
+    # for i in list_to_nest:
+    #     # print(i)
+    #     temp.append(''.join('\t',[i]))
+    # print(temp)
+    return(temp)
+
+
 @unpacker
 def infinite_loops():
     choices = [
@@ -235,13 +317,13 @@ def non_infinite_loops(passed, count = 1, upperlimit = 6) -> list:
         ],
         f"{''.join(str(i)for i in passed)}",
         [
-            '\tcount ++',
-            '\tcount += 1',
-            '\tcount -= -1',
-            '\tcount = count + 1',
-            '\tcount = count - -1',
-            '\tcount = count - (2 - 3)',
-            '\tcount = count + (3 - 2)'
+            'count ++',
+            'count += 1',
+            'count -= -1',
+            'count = count + 1',
+            'count = count - -1',
+            'count = count - (2 - 3)',
+            'count = count + (3 - 2)'
         ]
     ]
     # print(choices)
@@ -287,23 +369,152 @@ def fibonacci_sequence(nthterms) -> list:
         '\tprint("Fibonacci sequence:")\n'
     ]
     required_nests = [
-        '\tprint(n1)\n'
+        '\tprint(n1)\n',
+        '\tnth = n1 + n2',
+        '\tn1 = n2',
+        '\tn2 = nth'
     ]
     choices = combiner(
         imports(random_good_imports(), required_imports),
         required_components,
-        non_infinite_loops(required_nests, 1, nthterms)
+        nested(non_infinite_loops(required_nests, 0, nthterms))
     )
     return(choices)
+
+
+@unpacker
+def sudoku_maker() -> list:
+    required_imports = ['import math\n', 'import random\n']
+    required_components =[
+        'class SudokuMaker(object):\n',
+        '\t""" SudokuMaker """\n',
+        '\tdef __init__(self, trgt_num):\n',
+        '\t\tself.__trgt_num = trgt_num\n',
+        '\t\tself.__decision_num = int(math.sqrt(trgt_num))\n',
+        '\tdef make(self):\n',
+        '\t\t""" make sudoku function """\n',
+        '\t\tsudoku_list = self.__make_source()\n',
+        '\t\tsudoku_list = self.__shuffle_block(sudoku_list)\n',
+        '\t\tsudoku_list = self.__shuffle_row_per_block(sudoku_list)\n',
+        '\t\tsudoku_list = self.__switch_row_column(sudoku_list)\n',
+        '\t\tsudoku_list = self.__shuffle_block(sudoku_list)\n',
+        '\t\tsudoku_list = self.__shuffle_row_per_block(sudoku_list)\n',
+        '\t\treturn sudoku_list\n',
+        '\tdef __make_source(self):\n',
+        '\t\t""" Return the source list of sudoku """\n',
+        '\t\tinit_list = list(range(1, self.__trgt_num + 1))\n',
+        '\t\trandom.shuffle(init_list)\n',
+        '\t\tsource_list = []\n',
+        '\t\tfor i in range(self.__trgt_num):\n',
+        '\t\t\tinit_list.insert(0, init_list.pop())\n',
+        '\t\t\tsource_list.append(init_list[:])\n',
+        '\t\treturn source_list\n',
+        '\tdef __shuffle_block(self, in_list):\n',
+        '\t\t""" Shuffle Block """\n',
+        '\t\ttmp_block = []\n',
+        '\t\tfor i in range(self.__decision_num):\n',
+        '\t\t\tstart = i * self.__decision_num\n',
+        '\t\t\tstep = start + self.__decision_num\n',
+        '\t\t\tblock = in_list[start:step]\n',
+        '\t\t\ttmp_block.append(block)\n',
+        '\t\trandom.shuffle(tmp_block)\n',
+        '\t\t# format\n',
+        '\t\tret_list = []\n',
+        '\t\tfor var in tmp_block:\n',
+        '\t\t\tret_list = ret_list + var\n',
+        '\t\treturn ret_list\n',
+        '\tdef __shuffle_row_per_block(self, in_list):\n',
+        '\t\t""" Shuffle Row per Block """\n',
+        '\t\tret_list = []\n',
+        '\t\tfor i in range(self.__decision_num):\n',
+        '\t\t\tstart = i * self.__decision_num\n',
+        '\t\t\tstep = start + self.__decision_num\n',
+        '\t\t\tblock = in_list[start:step]\n',
+        '\t\t\trandom.shuffle(block)\n',
+        '\t\t\tret_list = ret_list + block\n',
+        '\t\treturn ret_list\n',
+        '\tdef __switch_row_column(self, in_list):\n',
+        '\t\t""" switch row column """\n',
+        '\t\tret_list = [[r[i] for r in in_list] for i in range(self.__trgt_num)]\n',
+        '\t\treturn ret_list\n'
+    ]
+    choices = combiner(
+        imports(random_good_imports(),required_imports),
+        required_components
+    )
+    return(choices)
+
+
+@unpacker
+def sudoku_solver() -> list:
+    grid = SudokuMaker(9)
+    test = grid.make()
+    required_imports = ['import numpy as np\n']
+    required_components = [
+        f'list_2D = {test}\n',
+        'print(np.matrix(list_2D))\n',
+        'def possible(y, x, n):\n',
+        '\tfor i in range(0, 9):\n',
+        '\t\tif list_2D[y][i] == n:\n',
+        '\t\t\treturn False\n',
+        '\tfor i in range(0,9):\n',
+        '\t\tif list_2D[x][i] == n:\n',
+        '\t\t\treturn False\n',
+        '\tx0 = (x//3)*3\n',
+        '\ty0 = (y//3)*3\n',
+        '\tfor i in range(0, 3):\n',
+        '\t\tfor j in range(0, 3):\n',
+        '\t\t\tif list_2D[y0+i][x0+j] == n:\n',
+        '\t\t\t\treturn False\n',
+        '\treturn True\n',
+        'def solve():\n',            
+        '\tfor y in range(9):\n',
+        '\t\tfor x in range(9):\n',
+        '\t\t\tif list_2D[y][x] == 0:\n',
+        '\t\t\t\tfor n in range(1, 10):\n',
+        '\t\t\t\t\tif possible(y,x,n):\n',
+        '\t\t\t\t\t\tprint(np.matrix(list_2D))\n',
+        '\t\t\t\t\t\tprint(y, x, n)\n',
+        '\t\t\t\t\t\tlist_2D[y][x] = n\n',
+        '\t\t\t\t\t\tsolve()\n',
+        '\t\t\t\t\t\tlist_2D[y][x] = 0\n',
+        '\t\t\treturn\n',
+        '\tprint(np.matrix(list_2D))\n',
+        '\tinput("More? ")\n',
+        'solve()\n',
+        'print(possible(4,4,3))\n',
+        'print(possible(4,4,5))\n'
+    ]
+    choices = combiner(
+        imports(random_good_imports(),required_imports),
+        required_components
+    )
+    return(choices)
+
 
 if __name__ == "__main__":  
     ### TEST THAT I HAVEN'T BROKEN ANYTHING #####
     reverse_shell                               #
-    fibonacci_sequence(random.randint(1, 1000)) #
+    exec(fibonacci_sequence(random.randint(1, 1000))) #
     ####### ^SHOULDN'T OUTPUT ANYTHING^ #########
     
     # print(reverse_shell)  
-    print(fibonacci_sequence(random.randint(1, 1000)))
+    # print(fibonacci_sequence(random.randint(1, 1000)))
+
+    # test = [
+    #     [5,3,0,0,7,0,0,0,0],
+    #     [6,0,0,1,9,5,0,0,0],
+    #     [0,9,8,0,0,0,0,6,0],
+    #     [8,0,0,0,6,0,0,0,3],
+    #     [4,0,0,8,0,3,0,0,1],
+    #     [7,0,0,0,2,0,0,0,6],
+    #     [0,6,0,0,0,0,2,8,0],
+    #     [0,0,0,4,1,9,0,0,5],
+    #     [0,0,0,0,8,0,0,7,9],
+    # ]
+    # sudoku_solver(test)
+    # print(sudoku_maker)
+    # print(sudoku_solver)
     # print(unpacker(place, holders)(non_infinite_loops(['print(n1)\n'], 1, 6)))
 
 
@@ -319,17 +530,18 @@ if __name__ == "__main__":
                 ## good payload choices.
                 good_payloads = [
                     fibonacci_sequence(random.randint(1, 1000)),
+                    sudoku_maker, sudoku_solver,
                 ]
-                good_choices = random.choice(good_payloads)
+                choices = random.choice(good_payloads)
             elif i == "bad":
                 ## bad payload choices. 
                 bad_payloads = [
                     reverse_shell, 
                     ]          
-                bad_choices = random.choice(bad_payloads)
+                choices = random.choice(bad_payloads)
             else: 
                 print("error: there is a problem with initialisation")
-
+            # print(choices)
             ### now we've made a payload choice, construct the file based
             ### on the outcome of the choice. 
 
