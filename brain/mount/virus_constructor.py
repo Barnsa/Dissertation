@@ -1,5 +1,13 @@
 import random
 
+
+
+def reseed(val=None):
+    if val==None:
+        random.seed()
+    else:
+        random.seed(val)
+        
 geneSequence = []
 def resolver2D(array): 
     """
@@ -77,11 +85,11 @@ def print_the_thing():
 
 
 def payload():
-    choices = [
+    choices = [[
         'print(os.system("cat /etc/shadow"))\n',
         'print("Doing the bad thing!!")\n',
         'print("installing the rootkit!!")\n'
-    ]
+    ]]
     return(resolver2D(choices))
 
 
