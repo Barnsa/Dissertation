@@ -12,6 +12,7 @@ RUN apt-get -y install iputils-ping
 
 # important for some debugging of virus later
 RUN apt-get -y install nmap python3-pip
+RUN apt-get -y install curl 
 
 # Set up a user
 RUN useradd -ms /bin/bash user
@@ -23,8 +24,8 @@ RUN pip3 install pyftpdlib
 # requirements for AV code
 RUN pip3 install pandas sklearn pefile
 RUN pip3 install joblib
-RUN apt-get -y install wine-stable
-RUN sudo dpkg --add-architecture i386 && sudo apt-get -y update && sudo apt-get -y install wine32
+#RUN apt-get -y install wine-stable
+#RUN sudo dpkg --add-architecture i386 && sudo apt-get -y update && sudo apt-get -y install wine32
 # RUN wget https://www.python.org/ftp/python/2.7.9/python-2.7.9.amd64.msi
 
 # # adding and running server code

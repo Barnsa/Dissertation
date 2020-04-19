@@ -1,0 +1,26 @@
+#!/bin/bash
+#bash
+/etc/init.d/ssh start
+<<<<<<< Updated upstream:host_im/mount/starter.sh
+ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-24)"
+=======
+python3 /ai_server_code.py &
+ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-25)"
+>>>>>>> Stashed changes:host_im/starter.sh
+echo
+echo "----------------"
+echo "Dumb Client"
+echo "----------------"
+echo
+echo $ip
+<<<<<<< Updated upstream:host_im/mount/starter.sh
+echo "$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-24 | xargs nmap)"
+mkdir /tmp/stash
+chmod a+rwx /tmp/stash
+python3 /root/mount/host_manager.py
+bash
+=======
+echo "$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-25 | xargs nmap)"
+
+#bash
+>>>>>>> Stashed changes:host_im/starter.sh

@@ -4,6 +4,8 @@ import threading, logging, time
 import virus_constructor as vc
 import CnC_Brain as cc
 
+vc.reseed()
+
 def experiment():
     x = vc.wrapper("175.20.0.200", "8080")
     cc.originality_check(x)

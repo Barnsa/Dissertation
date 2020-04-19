@@ -10,21 +10,21 @@ echo "----------------------------------------------------------"
 echo "Running machine learning optimiser"
 echo "----------------------------------------------------------"
 echo
-python3 /root/mount/malware-classification-master/learning.py 
+python3 /root/mount/malware-classification-master/learning_ab.py 
 /etc/init.d/ssh start
 mkdir /tmp/stash
 chmod a+rwx /tmp/stash
 python3 /root/mount/ftp_av.py &
 
-echo
-echo "----------------------------------------------------------"
-echo "Installing malware classifier dependancies"
-echo "----------------------------------------------------------"
-echo
+# echo
+# echo "----------------------------------------------------------"
+# echo "Installing malware classifier dependancies"
+# echo "----------------------------------------------------------"
+# echo
 # Possible fix for PE file creation using pyinstaller and wine
 # Setup for malware classifier
-cd /root/mount && wine msiexec /i python-2.7.9.amd64.msi /qb
-wine ~/.wine/drive_c/Python27/python.exe -m pip install pyinstaller
+# cd /root/mount && wine msiexec /i python-2.7.9.amd64.msi /qb
+# wine ~/.wine/drive_c/Python27/python.exe -m pip install pyinstaller
 
 
 ## greating banner with IP and nmap for debug, start bash for control

