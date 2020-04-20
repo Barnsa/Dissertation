@@ -29,7 +29,7 @@ class S(BaseHTTPRequestHandler):
 
 def run(server_class=HTTPServer, handler_class=S, port=8080):
     # logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-    logging.basicConfig(filename='app.log', filemode='w', level=logging.INFO)
+    logging.basicConfig(filename='/root/mount/app.log', filemode='w', level=logging.INFO)
     # logging.basicConfig(level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
