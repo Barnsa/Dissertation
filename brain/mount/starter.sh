@@ -19,7 +19,7 @@ nmap 175.20.0.2-199 -sn |awk '/is up/ {print up}; {gsub (/\(|\)/,""); up = $NF}'
 echo "Target list:"
 cat /root/brain/targets.txt
 echo "Beginning Brain Stuff"
-python3 /root/mount/CnC_Brain.py 3
+python3 /root/mount/CnC_Brain.py 
 
 # nc -lvp 8080
 bash

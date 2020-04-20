@@ -12,7 +12,8 @@ for i in sys.argv[1:]:
     # would take in any file name destination
     var = var.split('/')
     var = str(var[-1])
-    var = 'dist/' + str(var[:-3]) + '.exe'
+    # var = 'dist/' + str(var[:-3]) + '.exe'
+    var = '/tmp/stash/' + str(var)
     print("Done.")
     os.system("python3 /root/mount/malware-classification-master/checkpe_ab.py {}".format(var))
     

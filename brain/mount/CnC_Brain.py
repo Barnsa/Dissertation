@@ -59,7 +59,6 @@ def originality_check(hash_to_check, counter=0) -> bool:
                     return(True)
 
 
-
 # def downloadFile():
 #     filename: str = 'testfile.txt'  # replace with download file
 #     localFile = open(filename, 'wb')
