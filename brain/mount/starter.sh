@@ -1,7 +1,7 @@
 #!/bin/bash
 #bash
 /etc/init.d/ssh start
-python3 /root/mount/web_server.py &
+python3 /root/mount/web_server.py 8080 &
 
 #### set to cut 14-25 for 3 digit IP's
 ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -c 14-25)"

