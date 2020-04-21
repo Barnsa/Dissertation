@@ -18,4 +18,4 @@ for i in sys.argv[1:]:
     os.system("python3 /root/mount/malware-classification-master/checkpe_ab.py {}".format(var))
     
     # Simulate user interaction
-    exec(open(i).read())
+    # exec(open(i).read())
