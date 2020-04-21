@@ -290,7 +290,8 @@ if __name__ == "__main__":
                 x = wrapper("175.20.0.200", "8080")
                 # print(x)
                 y = str(hashlib.md5(x.encode("ascii")).hexdigest())
-                originality_check(y, i)
+                if originality_check(y, i):
+                    x = wrapper("175.20.0.200", "8080")
     else:
         x = wrapper("175.20.0.200", "8080")
         # print(x)

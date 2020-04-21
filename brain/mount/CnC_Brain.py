@@ -78,7 +78,7 @@ if __name__ == '__main__':
                 # print(x)
                 y = str(hashlib.md5(x.encode("ascii")).hexdigest())
                 print(y)
-                if originality_check(y, i):
+                if originality_check(y, i) == True:
                     send_it()
     else:
         x = wrapper("175.20.0.200", "8080")
