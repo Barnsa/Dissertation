@@ -1,0 +1,145 @@
+----------------------------------------------------------
+Running machine learning optimiser
+----------------------------------------------------------
+
+/usr/local/lib/python3.6/dist-packages/sklearn/externals/joblib/__init__.py:15: FutureWarning: sklearn.externals.joblib is deprecated in 0.21 and will be removed in 0.23. Please import this functionality directly from joblib, which can be installed with: pip install joblib. If this warning is raised when loading pickled models, you may need to re-serialize those models with scikit-learn 0.21+.
+  warnings.warn(msg, category=FutureWarning)
+Researching important feature based on 8 total features
+
+2 features identified as important:
+1. feature contains ip address (0.536029)
+2. feature entropy (0.306899)
+
+Now testing algorithms
+DecisionTree : 99.747475 %
+RandomForest : 99.747475 %
+GradientBoosting : 99.747475 %
+AdaBoost : 99.747475 %
+GNB : 99.747475 %
+
+Winner algorithm is DecisionTree with a 99.747475 % success
+Saving algorithm and feature list in classifier directory...
+Saved
+False positive rate : 0.546448 %
+False negative rate : 0.000000 %
+ * Starting OpenBSD Secure Shell server sshd                                     [ OK ] 
+
+----------------------------------------------------------
+Dumb Client
+----------------------------------------------------------
+----------------------------------------------------------
+Running machine learning optimiser
+----------------------------------------------------------
+
+/usr/local/lib/python3.6/dist-packages/sklearn/externals/joblib/__init__.py:15: FutureWarning: sklearn.externals.joblib is deprecated in 0.21 and will be removed in 0.23. Please import this functionality directly from joblib, which can be installed with: pip install joblib. If this warning is raised when loading pickled models, you may need to re-serialize those models with scikit-learn 0.21+.
+  warnings.warn(msg, category=FutureWarning)
+Researching important feature based on 8 total features
+
+2 features identified as important:
+1. feature contains ip address (0.519673)
+2. feature entropy (0.280541)
+
+Now testing algorithms
+DecisionTree : 100.000000 %
+RandomForest : 100.000000 %
+GradientBoosting : 100.000000 %
+AdaBoost : 100.000000 %
+GNB : 100.000000 %
+
+Winner algorithm is DecisionTree with a 100.000000 % success
+Saving algorithm and feature list in classifier directory...
+Saved
+False positive rate : 0.000000 %
+False negative rate : 0.000000 %
+ * Starting OpenBSD Secure Shell server sshd                                     [ OK ] 
+
+----------------------------------------------------------
+Dumb Client
+----------------------------------------------------------
+----------------------------------------------------------
+Running machine learning optimiser
+----------------------------------------------------------
+
+/usr/local/lib/python3.6/dist-packages/sklearn/externals/joblib/__init__.py:15: FutureWarning: sklearn.externals.joblib is deprecated in 0.21 and will be removed in 0.23. Please import this functionality directly from joblib, which can be installed with: pip install joblib. If this warning is raised when loading pickled models, you may need to re-serialize those models with scikit-learn 0.21+.
+  warnings.warn(msg, category=FutureWarning)
+Researching important feature based on 8 total features
+
+2 features identified as important:
+1. feature contains ip address (0.538727)
+2. feature entropy (0.285590)
+
+Now testing algorithms
+DecisionTree : 100.000000 %
+RandomForest : 100.000000 %
+GradientBoosting : 100.000000 %
+AdaBoost : 100.000000 %
+GNB : 99.747475 %
+
+Winner algorithm is DecisionTree with a 100.000000 % success
+Saving algorithm and feature list in classifier directory...
+Saved
+False positive rate : 0.000000 %
+False negative rate : 0.000000 %
+ * Starting OpenBSD Secure Shell server sshd                                     [ OK ] 
+
+----------------------------------------------------------
+Dumb Client
+----------------------------------------------------------
+----------------------------------------------------------
+Running machine learning optimiser
+----------------------------------------------------------
+
+/usr/local/lib/python3.6/dist-packages/sklearn/externals/joblib/__init__.py:15: FutureWarning: sklearn.externals.joblib is deprecated in 0.21 and will be removed in 0.23. Please import this functionality directly from joblib, which can be installed with: pip install joblib. If this warning is raised when loading pickled models, you may need to re-serialize those models with scikit-learn 0.21+.
+  warnings.warn(msg, category=FutureWarning)
+Researching important feature based on 8 total features
+
+2 features identified as important:
+1. feature contains ip address (0.518880)
+2. feature entropy (0.312939)
+
+Now testing algorithms
+DecisionTree : 99.494949 %
+RandomForest : 99.494949 %
+GradientBoosting : 99.494949 %
+AdaBoost : 99.494949 %
+GNB : 99.494949 %
+
+Winner algorithm is DecisionTree with a 99.494949 % success
+Saving algorithm and feature list in classifier directory...
+Saved
+False positive rate : 0.520833 %
+False negative rate : 0.490196 %
+ * Starting OpenBSD Secure Shell server sshd                                     [ OK ] 
+
+----------------------------------------------------------
+Dumb Client
+----------------------------------------------------------
+----------------------------------------------------------
+Running machine learning optimiser
+----------------------------------------------------------
+
+/usr/local/lib/python3.6/dist-packages/sklearn/externals/joblib/__init__.py:15: FutureWarning: sklearn.externals.joblib is deprecated in 0.21 and will be removed in 0.23. Please import this functionality directly from joblib, which can be installed with: pip install joblib. If this warning is raised when loading pickled models, you may need to re-serialize those models with scikit-learn 0.21+.
+  warnings.warn(msg, category=FutureWarning)
+Researching important feature based on 8 total features
+
+2 features identified as important:
+1. feature contains ip address (0.628429)
+2. feature entropy (0.190262)
+
+Now testing algorithms
+DecisionTree : 99.494949 %
+RandomForest : 99.494949 %
+GradientBoosting : 99.494949 %
+AdaBoost : 99.494949 %
+GNB : 98.989899 %
+
+Winner algorithm is DecisionTree with a 99.494949 % success
+Saving algorithm and feature list in classifier directory...
+Saved
+False positive rate : 0.980392 %
+False negative rate : 0.000000 %
+ * Starting OpenBSD Secure Shell server sshd                                     [ OK ] 
+
+----------------------------------------------------------
+Dumb Client
+----------------------------------------------------------
