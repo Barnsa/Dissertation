@@ -3,3 +3,4 @@
 *.pkl
 brain/mount/app.log
 brain/mount/filehashes2.txt
+scratch/*.*

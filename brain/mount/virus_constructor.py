@@ -278,25 +278,27 @@ if __name__ == "__main__":
     print("############################################################")
     print("### actual output program                                ###")
     print("############################################################")
-    # x = wrapper("175.20.0.200", "8080")
+    x = wrapper("175.20.0.200", "8080")
+    print(x)
     # y = x.encode("ascii")
     # print(y)
     # y = str(hashlib.md5(x.encode("ascii")).hexdigest())
     # y = '52eb5fa0c63355140232a2692bf06205'
     # print(y)
-    from sys import argv
-    if len(argv) == 2:
-            for i in range(0, int(argv[1])):
-                x = wrapper("175.20.0.200", "8080")
-                # print(x)
-                y = str(hashlib.md5(x.encode("ascii")).hexdigest())
-                if originality_check(y, i):
-                    x = wrapper("175.20.0.200", "8080")
-    else:
-        x = wrapper("175.20.0.200", "8080")
-        # print(x)
-        y = str(hashlib.md5(x.encode("ascii")).hexdigest())
-        originality_check(y)
+
+    # from sys import argv
+    # if len(argv) == 2:
+    #         for i in range(0, int(argv[1])):
+    #             x = wrapper("175.20.0.200", "8080")
+    #             # print(x)
+    #             y = str(hashlib.md5(x.encode("ascii")).hexdigest())
+    #             if originality_check(y, i):
+    #                 x = wrapper("175.20.0.200", "8080")
+    # else:
+    #     x = wrapper("175.20.0.200", "8080")
+    #     # print(x)
+    #     y = str(hashlib.md5(x.encode("ascii")).hexdigest())
+    #     originality_check(y)
 
     print("############################################################")
     print("### end string                                           ###")
